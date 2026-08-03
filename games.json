@@ -40,5 +40,19 @@
     "posterLine": "rgba(244,179,94,.44)",
     "posterHalo": "rgba(244,179,94,.08)",
     "number": "03 / STAR SEA"
+  },
+  {
+    "id": "xiuxian-idle-cat",
+    "title": "修仙挂机喵",
+    "shortTitle": "修仙挂机喵",
+    "description": "无尽修仙，梅尔沃挂机版。",
+    "type": "挂机修仙",
+    "tags": ["挂机", "修仙"],
+    "url": "https://youlingse.github.io/xiuxian-idle-cat/",
+    "accent": "#a4d18c",
+    "posterBg": "#263928",
+    "posterLine": "rgba(164,209,140,.42)",
+    "posterHalo": "rgba(164,209,140,.08)",
+    "number": "04 / IDLE CULTIVATION"
   }
 ]
