@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101419">
+  <meta name="description" content="你的个人小游戏大厅，收录已经上线的网页游戏。">
+  <title>游戏集 · 个人小游戏大厅</title>
+  <style>
+    :root {
+      --bg: #101419;
+      --bg-deep: #0b0f13;
+      --panel: #171d24;
+      --panel-raised: #1d252e;
+      --line: #2b353f;
+      --text: #f1f4f5;
+      --muted: #98a4ad;
+      --muted-2: #687580;
+      --accent: #f4b35e;
+      --accent-strong: #ffcc7d;
+      --accent-ink: #21160b;
+      --good: #86d7a5;
+      --danger: #ff9d87;
+      --radius: 12px;
+      --max: 1240px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+      letter-spacing: 0;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .16;
+      background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 52%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    .shell { position: relative; min-height: 100dvh; }
+    .container { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(16,20,25,.92);
+      backdrop-filter: blur(14px);
+    }
+    .nav { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 11px; }
+    .brand-mark {
+      width: 36px; height: 36px; display: grid; place-items: center;
+      border-radius: 10px; background: var(--accent); color: var(--accent-ink); font-weight: 900; font-size: 18px;
+      box-shadow: 0 8px 25px rgba(244,179,94,.18);
+    }
+    .brand-copy strong { display: block; font-size: 15px; letter-spacing: .08em; }
+    .brand-copy span { display: block; color: var(--muted-2); font-size: 9px; letter-spacing: .16em; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 6px; }
+    .nav-link { border: 0; background: transparent; color: var(--muted); padding: 9px 12px; border-radius: 7px; cursor: pointer; font-size: 12px; }
+    .nav-link:hover, .nav-link.active { color: var(--text); background: rgba(255,255,255,.06); }
+    .nav-link.active { color: var(--accent-strong); }
+    .nav-status { display: flex; align-items: center; gap: 8px; color: var(--muted-2); font-size: 11px; white-space: nowrap; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); box-shadow: 0 0 0 4px rgba(134,215,165,.12); }
+
+    .hero { padding: 64px 0 46px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(310px, .85fr); gap: 56px; align-items: end; }
+    .eyebrow { color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 16px; }
+    h1 { max-width: 650px; margin: 0 0 16px; font-size: clamp(34px, 5vw, 64px); line-height: 1.04; letter-spacing: -.055em; }
+    .hero-copy { max-width: 550px; color: var(--muted); font-size: 15px; line-height: 1.75; margin: 0; }
+    .hero-copy strong { color: var(--text); font-weight: 600; }
+    .search-panel { border-left: 1px solid var(--line); padding-left: 25px; }
+    .search-label { display: block; color: var(--muted-2); font-size: 11px; margin-bottom: 9px; }
+    .search-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+    .search-box { min-width: 0; display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 0 11px; }
+    .search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(244,179,94,.12); }
+    .search-icon { color: var(--muted-2); font-size: 16px; }
+    .search-box input { width: 100%; height: 42px; border: 0; outline: 0; color: var(--text); background: transparent; font-size: 12px; }
+    .search-box input::placeholder { color: var(--muted-2); }
+    .random-btn, .primary-btn, .secondary-btn {
+      border: 1px solid transparent; border-radius: 8px; padding: 0 13px; cursor: pointer; font-size: 12px; font-weight: 700; transition: .18s ease;
+    }
+    .random-btn { background: var(--accent); color: var(--accent-ink); }
+    .random-btn:hover, .primary-btn:hover { background: var(--accent-strong); transform: translateY(-1px); }
+    .random-btn:active, .primary-btn:active, .secondary-btn:active { transform: scale(.98); }
+    .hint { color: var(--muted-2); font-size: 10px; margin: 10px 0 0; }
+
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--line); }
+    .stat { background: var(--bg); padding: 18px 20px; }
+    .stat strong { display: block; font-size: 22px; letter-spacing: -.03em; margin-bottom: 4px; }
+    .stat span { color: var(--muted-2); font-size: 10px; }
+    .stat strong.accent { color: var(--accent-strong); }
+
+    main { padding-bottom: 72px; }
+    .section { padding-top: 43px; scroll-margin-top: 84px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 18px; }
+    .section-kicker { color: var(--muted-2); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 7px; }
+    h2 { margin: 0; font-size: 23px; letter-spacing: -.03em; }
+    .section-desc { color: var(--muted); font-size: 11px; margin: 7px 0 0; }
+    .section-link { border: 0; background: transparent; color: var(--accent); cursor: pointer; font-size: 11px; padding: 4px 0; }
+
+    .featured {
+      min-height: 282px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr);
+      overflow: hidden;
+      border: 1px solid #4f4130;
+      border-radius: var(--radius);
+      background: #1a2026;
+    }
+    .featured-copy { padding: 30px 31px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; }
+    .featured-label { color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
+    .featured h3 { margin: 0 0 10px; font-size: 29px; letter-spacing: -.045em; }
+    .featured p { max-width: 450px; color: #aeb8be; line-height: 1.65; font-size: 13px; margin: 0; }
+    .featured-meta { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+    .tag { display: inline-flex; align-items: center; min-height: 22px; padding: 0 8px; border: 1px solid #48525b; border-radius: 5px; color: #c1cbd0; font-size: 10px; }
+    .featured-art { position: relative; min-height: 280px; overflow: hidden; background: #202b34; }
+    .featured-art::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(15,20,25,.14), rgba(15,20,25,.78)); }
+    .featured-art::after { content: ""; position: absolute; width: 240px; height: 240px; top: 30px; right: -40px; border: 1px solid rgba(244,179,94,.38); border-radius: 50%; box-shadow: 0 0 0 22px rgba(244,179,94,.07), 0 0 0 45px rgba(244,179,94,.05); }
+    .featured-art-inner { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 30px; z-index: 1; }
+    .featured-symbol { font-size: 76px; font-weight: 900; line-height: .8; color: #ffd18b; opacity: .9; letter-spacing: -.12em; }
+    .featured-art-inner span { color: #ffdda9; font-size: 11px; letter-spacing: .24em; margin-top: 21px; }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 17px; }
+    .filter { border: 1px solid var(--line); border-radius: 6px; padding: 7px 11px; background: transparent; color: var(--muted); cursor: pointer; font-size: 11px; }
+    .filter:hover, .filter.active { color: var(--accent-strong); background: rgba(244,179,94,.1); border-color: #8a6335; }
+    .game-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .game-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); transition: .2s ease; }
+    .game-card:hover { border-color: #67717a; transform: translateY(-3px); box-shadow: 0 16px 34px rgba(0,0,0,.18); }
+    .poster { position: relative; min-height: 168px; overflow: hidden; padding: 18px; background: var(--poster-bg); }
+    .poster::before { content: ""; position: absolute; width: 170px; height: 170px; right: -45px; top: -70px; border: 1px solid var(--poster-line); border-radius: 50%; box-shadow: 0 0 0 18px var(--poster-halo), 0 0 0 38px rgba(255,255,255,.025); }
+    .poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 42%, rgba(255,255,255,.05) 43%, transparent 44%); pointer-events: none; }
+    .poster-number { position: relative; z-index: 1; color: var(--poster-accent); font-size: 10px; letter-spacing: .18em; }
+    .poster-title { position: absolute; z-index: 1; left: 18px; right: 18px; bottom: 19px; }
+    .poster-title strong { display: block; max-width: 220px; font-size: 21px; line-height: 1.1; letter-spacing: -.04em; }
+    .poster-title span { display: block; margin-top: 8px; color: var(--poster-accent); font-size: 10px; letter-spacing: .14em; }
+    .card-body { padding: 17px 17px 15px; }
+    .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .card-type { color: var(--accent); font-size: 10px; }
+    .card-state { color: var(--good); font-size: 10px; }
+    .game-card h3 { margin: 0 0 7px; font-size: 15px; letter-spacing: -.02em; }
+    .game-card p { min-height: 36px; color: var(--muted); font-size: 11px; line-height: 1.6; margin: 0; }
+    .card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; margin-top: 13px; border-top: 1px solid var(--line); }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .card-tags .tag { min-height: 20px; color: var(--muted-2); border-color: #35414b; font-size: 9px; padding: 0 6px; }
+    .primary-btn { height: 32px; background: var(--accent); color: var(--accent-ink); white-space: nowrap; }
+    .empty { grid-column: 1 / -1; border: 1px dashed #3c464f; border-radius: var(--radius); padding: 40px 20px; text-align: center; color: var(--muted); }
+    .empty strong { display: block; color: var(--text); margin-bottom: 7px; }
+
+    footer { border-top: 1px solid var(--line); padding: 23px 0 28px; color: var(--muted-2); font-size: 10px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 15px; }
+    .footer-inner strong { color: var(--muted); font-weight: 600; }
+    .toast { position: fixed; left: 50%; bottom: 24px; z-index: 40; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; border: 1px solid #675236; border-radius: 7px; background: #211b13; color: #f7d9a5; padding: 10px 13px; font-size: 11px; transition: .2s ease; }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+      .search-panel { border-left: 0; border-top: 1px solid var(--line); padding: 21px 0 0; }
+      .featured { grid-template-columns: 1fr; }
+      .featured-art { min-height: 200px; }
+      .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 580px) {
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      .nav { height: 62px; }
+      .nav-links { display: none; }
+      .nav-status { font-size: 10px; }
+      .hero { padding: 45px 0 34px; }
+      h1 { font-size: 40px; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { padding: 13px 15px; display: flex; align-items: baseline; justify-content: space-between; }
+      .stat strong { margin: 0; font-size: 19px; }
+      .stat span { font-size: 10px; }
+      .game-grid { grid-template-columns: 1fr; }
+      .poster { min-height: 145px; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="container nav">
+        <a class="brand" href="#top" aria-label="游戏集首页">
+          <span class="brand-mark">游</span>
+          <span class="brand-copy"><strong>游戏集</strong><span>MY GAME ARCADE</span></span>
+        </a>
+        <nav class="nav-links" aria-label="主导航">
+          <a class="nav-link active" href="#top">首页</a>
+          <a class="nav-link" href="#featured">精品推荐</a>
+          <a class="nav-link" href="#games">全部游戏</a>
+        </nav>
+        <div class="nav-status"><span class="status-dot"></span><span id="onlineStatus">大厅在线</span></div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero container">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">Personal Arcade · 2026</div>
+            <h1>今天玩点<br><span style="color:var(--accent-strong)">不一样的。</span></h1>
+            <p class="hero-copy">这里收录已经上线的小游戏。<strong>点开就玩，不用安装。</strong>以后新增的作品，也会继续出现在这个大厅里。</p>
+          </div>
+          <div class="search-panel">
+            <label class="search-label" for="gameSearch">找游戏</label>
+            <div class="search-row">
+              <div class="search-box"><span class="search-icon">⌕</span><input id="gameSearch" type="search" placeholder="搜索游戏名称或类型" autocomplete="off"></div>
+              <button class="random-btn" id="randomBtn" type="button">随机进入</button>
+            </div>
+            <p class="hint">支持名称、类型和标签搜索</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats container" aria-label="大厅统计">
+        <div class="stat"><strong class="accent" id="gameCount">03</strong><span>已上线游戏</span></div>
+        <div class="stat"><strong>∞</strong><span>随时添加新作品</span></div>
+        <div class="stat"><strong>0</strong><span>安装与登录门槛</span></div>
+      </section>
+
+      <section class="section container" id="featured">
+        <div class="section-head"><div><div class="section-kicker">Editor&apos;s Pick</div><h2>今日推荐</h2><p class="section-desc">一场适合慢慢玩的长线冒险。</p></div><button class="section-link" id="featuredLink" type="button">直接进入　›</button></div>
+        <article class="featured" id="featuredCard">
+          <div class="featured-copy"><div><div class="featured-label">Featured Game · 03</div><h3>星海远征：无限纯文字版</h3><p>万职典藏，纯文字长线冒险。把职业、编队和探索交给你的选择，慢慢把一段星海旅程写出来。</p><div class="featured-meta"><span class="tag">文字 RPG</span><span class="tag">长线养成</span><span class="tag">无需安装</span></div></div><button class="primary-btn" id="featuredBtn" type="button">开始远征　↗</button></div>
+          <div class="featured-art" aria-label="星海远征主题图形"><div class="featured-art-inner"><div class="featured-symbol">✦</div><span>STAR SEA / ENDLESS</span></div></div>
+        </article>
+      </section>
+
+      <section class="section container" id="games">
+        <div class="section-head"><div><div class="section-kicker">Game Library</div><h2>全部游戏</h2><p class="section-desc" id="resultHint">按你喜欢的方式，挑一款打开。</p></div></div>
+        <div class="filters" role="tablist" aria-label="游戏分类">
+          <button class="filter active" data-filter="全部" type="button">全部</button>
+          <button class="filter" data-filter="PC" type="button">PC 模拟</button>
+          <button class="filter" data-filter="WAP" type="button">WAP 复古</button>
+          <button class="filter" data-filter="文字" type="button">文字冒险</button>
+        </div>
+        <div class="game-grid" id="gameGrid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer><div class="container footer-inner"><span><strong>游戏集</strong>　个人小游戏大厅</span><span>由 GitHub Pages 托管 · 持续更新</span></div></footer>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const fallbackGames = [
+      { id: "win98", title: "Windows 98 中文版", shortTitle: "Windows 98", description: "在熟悉的蓝屏与像素窗口里，重启一台旧电脑。", type: "桌面模拟", tags: ["PC", "复古"], url: "https://youlingse.github.io/win98/", accent: "#89c6ff", posterBg: "#223447", posterLine: "rgba(137,198,255,.42)", posterHalo: "rgba(137,198,255,.08)", number: "01 / CLASSIC DESKTOP" },
+      { id: "wap-game", title: "WAP 经典游戏合集", shortTitle: "WAP 游戏合集", description: "在虚拟 M600 手机上，重返早期 WAP 网游时代。", type: "复古合集", tags: ["WAP", "多游戏"], url: "https://youlingse.github.io/wap-game/", accent: "#ffad77", posterBg: "#44302a", posterLine: "rgba(255,173,119,.42)", posterHalo: "rgba(255,173,119,.08)", number: "02 / MOBILE MEMORY" },
+      { id: "star-sea-expedition", title: "星海远征：无限纯文字版", shortTitle: "星海远征", description: "万职典藏，纯文字长线冒险，把每次选择写成自己的远征。", type: "文字 RPG", tags: ["文字", "长线"], url: "https://youlingse.github.io/star-sea-expedition/", accent: "#f4b35e", posterBg: "#3a3020", posterLine: "rgba(244,179,94,.44)", posterHalo: "rgba(244,179,94,.08)", number: "03 / STAR SEA" }
+    ];
+    let games = fallbackGames;
+    let activeFilter = "全部";
+    const grid = document.getElementById("gameGrid");
+    const search = document.getElementById("gameSearch");
+    const resultHint = document.getElementById("resultHint");
+    const toast = document.getElementById("toast");
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+    function getFilteredGames() {
+      const query = search.value.trim().toLowerCase();
+      return games.filter(game => {
+        const haystack = [game.title, game.shortTitle, game.description, game.type, ...(game.tags || [])].join(" ").toLowerCase();
+        const matchQuery = !query || haystack.includes(query);
+        const matchFilter = activeFilter === "全部" || [game.type, ...(game.tags || [])].includes(activeFilter);
+        return matchQuery && matchFilter;
+      });
+    }
+    function cardTemplate(game) {
+      return `<article class="game-card" style="--poster-bg:${game.posterBg};--poster-line:${game.posterLine};--poster-halo:${game.posterHalo};--poster-accent:${game.accent}"><a href="${game.url}" target="_blank" rel="noopener noreferrer"><div class="poster"><div class="poster-number">${game.number}</div><div class="poster-title"><strong>${game.shortTitle}</strong><span>${game.type}</span></div></div><div class="card-body"><div class="card-meta"><span class="card-type">已上线</span><span class="card-state">● 可直接进入</span></div><h3>${game.title}</h3><p>${game.description}</p><div class="card-bottom"><div class="card-tags">${game.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}</div><span class="primary-btn">开始玩　↗</span></div></div></a></article>`;
+    }
+    function renderGames() {
+      const visible = getFilteredGames();
+      document.getElementById("gameCount").textContent = String(games.length).padStart(2, "0");
+      resultHint.textContent = visible.length ? `显示 ${visible.length} 款游戏，点击卡片即可打开。` : "换个关键词试试，或者清除筛选。";
+      grid.innerHTML = visible.length ? visible.map(cardTemplate).join("") : `<div class="empty"><strong>没有找到这款游戏</strong><span>大厅里暂时没有匹配的作品。</span></div>`;
+    }
+    function openRandomGame() {
+      const visible = getFilteredGames();
+      if (!visible.length) { showToast("当前筛选没有可进入的游戏"); return; }
+      const game = visible[Math.floor(Math.random() * visible.length)];
+      window.open(game.url, "_blank", "noopener,noreferrer");
+    }
+    document.querySelectorAll(".filter").forEach(button => button.addEventListener("click", () => {
+      activeFilter = button.dataset.filter;
+      document.querySelectorAll(".filter").forEach(item => item.classList.toggle("active", item === button));
+      renderGames();
+    }));
+    search.addEventListener("input", renderGames);
+    document.getElementById("randomBtn").addEventListener("click", openRandomGame);
+    document.getElementById("featuredLink").addEventListener("click", () => window.open(fallbackGames[2].url, "_blank", "noopener,noreferrer"));
+    document.getElementById("featuredBtn").addEventListener("click", () => window.open(fallbackGames[2].url, "_blank", "noopener,noreferrer"));
+    fetch("games.json", { cache: "no-store" }).then(response => {
+      if (!response.ok) throw new Error("games.json unavailable");
+      return response.json();
+    }).then(data => {
+      if (Array.isArray(data) && data.length) { games = data; renderGames(); }
+    }).catch(() => { document.getElementById("onlineStatus").textContent = "大厅在线 · 本地目录"; });
+    renderGames();
+  </script>
+</body>
+</html>
