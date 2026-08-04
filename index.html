@@ -272,6 +272,7 @@
           <article class="info-panel">
             <h3>更新公告</h3>
             <ul class="update-list">
+              <li class="update-item"><time class="update-date" datetime="2026-08-04">2026.08.04</time><div><strong>新增《碧蓝幻想 re》与来源声明</strong><span>已接入游戏大厅；仓库明确标注 Wiki/网络素材来源、非统一开源授权，以及禁止爬取、镜像和再分发。</span></div></li>
               <li class="update-item"><time class="update-date" datetime="2026-08-04">2026.08.04</time><div><strong>新增《修仙挂机喵》</strong><span>已接入游戏大厅，支持直接打开游玩；大厅收录数量更新为 04。</span></div></li>
               <li class="update-item"><time class="update-date" datetime="2026-08-03">2026.08.03</time><div><strong>大厅上线</strong><span>建立统一入口，收录 Windows 98、WAP 经典游戏合集与星海远征。</span></div></li>
             </ul>
@@ -294,7 +295,8 @@
     const fallbackGames = [
       { id: "win98", title: "Windows 98 中文版", shortTitle: "Windows 98", description: "在熟悉的蓝屏与像素窗口里，重启一台旧电脑。", type: "桌面模拟", tags: ["PC", "复古"], url: "https://youlingse.github.io/win98/", accent: "#89c6ff", posterBg: "#223447", posterLine: "rgba(137,198,255,.42)", posterHalo: "rgba(137,198,255,.08)", number: "01 / CLASSIC DESKTOP" },
       { id: "wap-game", title: "WAP 经典游戏合集", shortTitle: "WAP 游戏合集", description: "在虚拟 M600 手机上，重返早期 WAP 网游时代。", type: "复古合集", tags: ["WAP", "多游戏"], url: "https://youlingse.github.io/wap-game/", accent: "#ffad77", posterBg: "#44302a", posterLine: "rgba(255,173,119,.42)", posterHalo: "rgba(255,173,119,.08)", number: "02 / MOBILE MEMORY" },
-      { id: "star-sea-expedition", title: "星海远征：无限纯文字版", shortTitle: "星海远征", description: "万职典藏，纯文字长线冒险，把每次选择写成自己的远征。", type: "文字 RPG", tags: ["文字", "长线"], url: "https://youlingse.github.io/star-sea-expedition/", accent: "#f4b35e", posterBg: "#3a3020", posterLine: "rgba(244,179,94,.44)", posterHalo: "rgba(244,179,94,.08)", number: "03 / STAR SEA" }
+      { id: "star-sea-expedition", title: "星海远征：无限纯文字版", shortTitle: "星海远征", description: "万职典藏，纯文字长线冒险，把每次选择写成自己的远征。", type: "文字 RPG", tags: ["文字", "长线"], url: "https://youlingse.github.io/star-sea-expedition/", accent: "#f4b35e", posterBg: "#3a3020", posterLine: "rgba(244,179,94,.44)", posterHalo: "rgba(244,179,94,.08)", number: "03 / STAR SEA" },
+      { id: "gbf-offline-re", title: "碧蓝幻想 re", shortTitle: "碧蓝幻想 re", description: "离线重制版，包含角色、战斗、奥义与多系统玩法；来源与使用限制见仓库说明。", type: "战斗 RPG", tags: ["战斗", "离线"], url: "https://youlingse.github.io/gbf-offline-re/", accent: "#79b8ff", posterBg: "#26364a", posterLine: "rgba(121,184,255,.42)", posterHalo: "rgba(121,184,255,.08)", number: "05 / GBF RE" }
     ];
     let games = fallbackGames;
     let activeFilter = "全部";
