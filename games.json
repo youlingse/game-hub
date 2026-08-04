@@ -54,5 +54,19 @@
     "posterLine": "rgba(164,209,140,.42)",
     "posterHalo": "rgba(164,209,140,.08)",
     "number": "04 / IDLE CULTIVATION"
+  },
+  {
+    "id": "gbf-offline-re",
+    "title": "碧蓝幻想 re",
+    "shortTitle": "碧蓝幻想 re",
+    "description": "离线重制版，包含角色、战斗、奥义与多系统玩法；来源与使用限制见仓库说明。",
+    "type": "战斗 RPG",
+    "tags": ["战斗", "离线"],
+    "url": "https://youlingse.github.io/gbf-offline-re/",
+    "accent": "#79b8ff",
+    "posterBg": "#26364a",
+    "posterLine": "rgba(121,184,255,.42)",
+    "posterHalo": "rgba(121,184,255,.08)",
+    "number": "05 / GBF RE"
   }
 ]
