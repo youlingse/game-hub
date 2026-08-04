@@ -172,6 +172,14 @@
     .info-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
     .info-link { display: inline-flex; align-items: center; min-height: 28px; border: 1px solid #46515a; border-radius: 6px; padding: 0 9px; color: var(--accent-strong); font-size: 10px; }
     .info-link:hover { border-color: var(--accent); background: rgba(244,179,94,.08); }
+    .announcement-backdrop { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 18px; background: rgba(8,12,17,.58); }
+    .announcement-modal { width: min(520px, 100%); border: 1px solid #75613e; border-radius: var(--radius); background: #211c14; color: var(--text); box-shadow: 0 20px 60px rgba(0,0,0,.42); padding: 23px; }
+    .announcement-modal h2 { margin: 0 0 10px; color: var(--accent-strong); font-size: 20px; }
+    .announcement-modal p { color: #c4c0b8; font-size: 12px; line-height: 1.75; margin: 8px 0; }
+    .announcement-modal strong { color: #f7d9a5; }
+    .announcement-actions { display: flex; justify-content: flex-end; margin-top: 16px; }
+    .announcement-actions button { border: 1px solid #a8793b; border-radius: 7px; padding: 8px 16px; background: var(--accent); color: var(--accent-ink); cursor: pointer; font: inherit; font-size: 12px; font-weight: 700; }
+    .announcement-actions button:hover { background: var(--accent-strong); }
 
     footer { border-top: 1px solid var(--line); padding: 23px 0 28px; color: var(--muted-2); font-size: 10px; }
     .footer-inner { display: flex; justify-content: space-between; gap: 15px; }
@@ -206,6 +214,14 @@
 </head>
 <body>
   <div class="shell">
+    <div class="announcement-backdrop" role="presentation" onclick="if(event.target===this)this.remove()">
+      <section class="announcement-modal" role="dialog" aria-modal="true" aria-labelledby="announcement-title">
+        <h2 id="announcement-title">更新公告</h2>
+        <p><strong>《碧蓝幻想 re》首次打开或刷新页面后，请先等待数据与素材加载完成。</strong></p>
+        <p>部分网络环境访问 GitHub/CDN 较慢，加载未完成时可能暂时显示兼容旧版界面。请保持网络通畅，必要时使用稳定的网络加速或代理后再操作。</p>
+        <div class="announcement-actions"><button type="button" onclick="this.closest('.announcement-backdrop').remove()">我知道了</button></div>
+      </section>
+    </div>
     <header>
       <div class="container nav">
         <a class="brand" href="#top" aria-label="游戏集首页">
