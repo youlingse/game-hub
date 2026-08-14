@@ -68,5 +68,19 @@
     "posterLine": "rgba(121,184,255,.42)",
     "posterHalo": "rgba(121,184,255,.08)",
     "number": "05 / GBF RE"
+  },
+  {
+    "id": "chronicle-of-radiance",
+    "title": "辉迹编年史",
+    "shortTitle": "辉迹编年史",
+    "description": "集结英灵、编排队伍，在光辉与史诗交织的冒险中书写你的传说。",
+    "type": "二次元 RPG",
+    "tags": ["养成", "回合制"],
+    "url": "https://youlingse.github.io/chronicle-of-radiance/",
+    "accent": "#e7bd70",
+    "posterBg": "#30284b",
+    "posterLine": "rgba(231,189,112,.46)",
+    "posterHalo": "rgba(231,189,112,.09)",
+    "number": "06 / RADIANT CHRONICLE"
   }
 ]
